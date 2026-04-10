@@ -1,0 +1,11 @@
+[package]
+name = "mock_external_server"
+version = "0.1.0"
+description = "Mock MCP Server — echo, get_time, add tools for testing mcp-gateway"
+type = "executable"
+
+[entry_points]
+node = "mock_server:main"
+
+[dependencies]
+python = ["mcp"]
