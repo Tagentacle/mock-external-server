@@ -58,8 +58,13 @@ async def main():
     args = parser.parse_args()
 
     if args.http:
+        import uvicorn
+
         logger.info("Mock server starting on HTTP port %d", args.http)
-        await mcp.run_streamable_http_async(host="127.0.0.1", port=args.http)
+        app = mcp.streamable_http_app()
+        config = uvicorn.Config(app, host="127.0.0.1", port=args.http, log_level="info")
+        server = uvicorn.Server(config)
+        await server.serve()
     else:
         logger.info("Mock server starting on stdio")
         await mcp.run_stdio_async()
